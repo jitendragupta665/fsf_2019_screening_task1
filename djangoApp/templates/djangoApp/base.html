@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<html>
+    <head>
+      <title>Task</title>
+      <link rel="stylesheet" href="{% static 'css/djangoApp.css' %}">
+
+    </head>
+    <body>
+      {% if user.is_authenticated %}
+      <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'logout' %}">Sign Out</a>
+      {% else %}
+      <a href="{% url 'signup' %}">Sign Up</a>
+      <a href="{% url 'login' %}">Sign In</a>
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+</body>
+</html>
