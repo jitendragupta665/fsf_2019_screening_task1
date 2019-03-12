@@ -14,14 +14,21 @@ def home(request):
                 return redirect('home')
         else:
             form = TaskForm()
-            users = User.objects.all()
+            users = User.objects.exclude(username=request.user.username)
+            try:
+                tasks = Task.objects.filter(task_creator=request.user)
+                Team.add_member(request.user,request.user,tasks)
+            except Task.DoesNotExist:
+                tasks=None
             try:
                     team = Team.objects.get(team_creator=request.user)
-                    members=team.team_member.all()
+                    members=team.team_member.exclude(username=request.user.username)
+                    tasks=team.member_task.all()
                     context={
                     'form':form,
                     'users':users,
-                    'members':members
+                    'members':members,
+                    'tasks':tasks
                     }
                     return render(request, 'djangoApp/home.html',context)
             except Team.DoesNotExist:

@@ -18,9 +18,11 @@ class Team(models.Model):
     def add_member(cls,team_creator,new_member,tasks):
         team,create=cls.objects.get_or_create(team_creator=team_creator)
         team.team_member.add(new_member)
-        #team.member_task.add(tasks)
+        for task in tasks:
+           team.member_task.add(task)
     @classmethod
     def remove_member(cls,team_creator,new_member,tasks):
         team,created =cls.objects.get_or_create(team_creator=team_creator)
         team.team_member.remove(new_member)
-        #team.member_task.add(tasks)
+        for task in tasks:
+           team.member_task.remove(task)

@@ -21,16 +21,21 @@
   </form>
   <h1>Assigned Task</h1>
   {% for task in tasks %}
-   {{task}}
+   <p>{{task.title}} </p>
+   <p>{{task.description}} </p>
+   <p>{{task.assignee}} </p>
+   <p>{{task.status}} </p
+     <h1>Next Task</h1>
   {% endfor %}
   </div>
   <div>
 <h1>Create Team</h1>
   {% for usr in users%}
   <p>
-      {% if usr not in members %}
-      {{usr.username}}
+  {% if not usr  in members %}
+      <h2>{{usr.username}}
       <a href="{% url 'change_member' operation='add' pk=usr.pk %}"><button type="button" name="button">Add</button></a>
+      </h2>
       {% endif %}
       </p>
   {% endfor %}
