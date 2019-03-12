@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
 path('', views.home, name='home'),
-url(r'^connect/(?P<operation>,+)/(?P<pk>\d+)/ $',views.change_member,name="change_memebr")
+path('connect/(?P<operation>,+)/(?P<pk>\d+)/',views.change_member,name="change_member")
 ]

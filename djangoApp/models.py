@@ -12,12 +12,15 @@ class Task(models.Model):
         return self.title
 class Team(models.Model):
     team_member = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    team_creator=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='owner',null=True)
+    team_creator=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='own',on_delete=models.CASCADE,null=True)
+    member_task = models.ManyToManyField(Task)
     @classmethod
-    def add_member(cls,team_creator,new_member):
-        team,create=cls.objects.ger_or_create(team_creator=team_creator)
+    def add_member(cls,team_creator,new_member,tasks):
+        team,create=cls.objects.get_or_create(team_creator=team_creator)
         team.team_member.add(new_member)
+        #team.member_task.add(tasks)
     @classmethod
-    def remove_member(cls,team_creator,member):
-        team,create=cls.objects.ger_or_create(team_creator=team_creator)
+    def remove_member(cls,team_creator,new_member,tasks):
+        team,created =cls.objects.get_or_create(team_creator=team_creator)
         team.team_member.remove(new_member)
+        #team.member_task.add(tasks)

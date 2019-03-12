@@ -3,7 +3,7 @@
 <section>
   <div>
   <h1>Create Task</h1>
-  <form method="post">
+  <form method="POST">
   {% csrf_token %}
   {% for field in form %}
   <p>
@@ -27,13 +27,21 @@
   <div>
 <h1>Create Team</h1>
   {% for usr in users%}
-<form  action="home.html" method="post">
+  <p>
+      {% if usr not in members %}
       {{usr.username}}
-      <a href="{% url 'home' %}">+Add</a>
-</form>
+      <a href="{% url 'change_member' operation='add' pk=usr.pk %}"><button type="button" name="button">Add</button></a>
+      {% endif %}
+      </p>
   {% endfor %}
 <p>{% if user.is_authenticated  %} {{user.username}} {% else %}visitor{% endif %}</p>
 <h1>Team Member</h1>
+{% for member in members%}
+<p>
+{{member.username}}
+<a href="{% url 'change_member' operation='remove' pk=member.pk %}"><button type="button" name="button">Remove</button></a>
+</p>
+{% endfor %}
 </div>
 </section>
 {% endblock %}
