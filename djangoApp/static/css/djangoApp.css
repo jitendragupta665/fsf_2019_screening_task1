@@ -4,3 +4,20 @@ section {
 div {
   flex: 1;
 }
+
+.login {
+  text-align:center;
+  margin-top: 150px;
+  margin-left: 40%;
+  background-color: #81ecec;
+}
+.sign {
+  text-align:center;
+  margin-top: 15px;
+  margin-left: 25%;
+  background-color: #81ecec;
+}
+.signin1 {
+  padding-bottom: 15px;
+  text-align: center;
+}

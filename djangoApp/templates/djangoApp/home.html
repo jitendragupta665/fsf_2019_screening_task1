@@ -1,34 +1,41 @@
 {% extends 'djangoApp/base.html' %}
 {% block content %}
-<section>
-  <div>
-  <h1>Create Task</h1>
-  <form method="POST">
-  {% csrf_token %}
-  {% for field in form %}
-  <p>
-    {{ field.label_tag }}<br>
-    {{ field }}
-    {% if field.help_text %}
-    <small class="help">{{ field.help_text|safe }}</small>
-    {% endif %}
-    {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
-    {% endfor %}
-  </p>
-  {% endfor %}
-  <button type="submit">Create Task</button>
-  </form>
-  <h1>Assigned Task</h1>
-  {% for task in tasks %}
-   <p>{{task.title}} </p>
-   <p>{{task.description}} </p>
-   <p>{{task.assignee}} </p>
-   <p>{{task.status}} </p
-     <h1>Next Task</h1>
-  {% endfor %}
-  </div>
-  <div>
+
+<div style="background-color:white;">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+      <h1>Create Task</h1>
+      <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+          <small class="help">{{ field.help_text|safe }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+        {% endfor %}
+      <button type="submit" class="btn btn-info">Create Task</button>
+      </form>
+      </div>
+
+        <div class="col-sm">
+          <h1>Assigned Task</h1>
+          {% for task in tasks %}
+           <p>{{task.title}} </p>
+           <p>{{task.description}} </p>
+           <p>{{task.assignee}} </p>
+           <p>{{task.status}} </p
+             <h1>Next Task</h1>
+          {% endfor %}
+          </div>
+        </div>
+      <div>
 <h1>Create Team</h1>
   {% for usr in users%}
   <p>
@@ -44,9 +51,9 @@
 {% for member in members%}
 <p>
 {{member.username}}
-<a href="{% url 'change_member' operation='remove' pk=member.pk %}"><button type="button" name="button">Remove</button></a>
+<a href="{% url 'change_member' operation='remove' pk=member.pk %}"><button type="button" name="button" class="btn btn-danger">Remove</button></a>
 </p>
 {% endfor %}
 </div>
-</section>
+</div>
 {% endblock %}

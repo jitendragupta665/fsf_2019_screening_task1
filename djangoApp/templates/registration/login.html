@@ -1,6 +1,7 @@
 {% extends 'djangoApp/base.html' %}
 {% block content %}
-    <h1>Sign In</h1>
+<div class="login card" style="width: 18rem; text-align:center; background-color:#dfe6e9;">
+    <h1 class="signin1">Sign in</h1>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -15,5 +16,6 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Sign In</button>
+    <button type="submit" class="btn btn-info">Sign In</button>
+    </div>
 {% endblock %}

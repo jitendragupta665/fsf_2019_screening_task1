@@ -40,8 +40,9 @@ def home(request):
                     'members':members
                     }
         return render(request, 'djangoApp/home.html',context)
-
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method=="POST":
              form=SignUpForm(request.POST)
              if form.is_valid():
