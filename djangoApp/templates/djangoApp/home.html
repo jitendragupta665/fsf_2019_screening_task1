@@ -1,6 +1,5 @@
 {% extends 'djangoApp/base.html' %}
 {% block content %}
-
 <div style="background-color:white;">
   <div class="container">
     <div class="row">
@@ -23,7 +22,6 @@
       <button type="submit" class="btn btn-info">Create Task</button>
       </form>
       </div>
-
         <div class="col-sm">
           <h1>Assigned Task</h1>
           {% for task in tasks %}
@@ -36,24 +34,6 @@
           </div>
         </div>
       <div>
-<h1>Create Team</h1>
-  {% for usr in users%}
-  <p>
-  {% if not usr  in members %}
-      <h2>{{usr.username}}
-      <a href="{% url 'change_member' operation='add' pk=usr.pk %}"><button type="button" name="button">Add</button></a>
-      </h2>
-      {% endif %}
-      </p>
-  {% endfor %}
-<p>{% if user.is_authenticated  %} {{user.username}} {% else %}visitor{% endif %}</p>
-<h1>Team Member</h1>
-{% for member in members%}
-<p>
-{{member.username}}
-<a href="{% url 'change_member' operation='remove' pk=member.pk %}"><button type="button" name="button" class="btn btn-danger">Remove</button></a>
-</p>
-{% endfor %}
 </div>
 </div>
 {% endblock %}

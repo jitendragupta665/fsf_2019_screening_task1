@@ -61,4 +61,21 @@ def change_member(request,operation,pk):
          Team.add_member(request.user,new_member,tasks)
      elif operation == 'remove':
          Team.remove_member(request.user,new_member,tasks)
-     return redirect('home')
+     return redirect('team')
+def team(request):
+    users = User.objects.exclude(username=request.user.username)
+    try:
+            team = Team.objects.get(team_creator=request.user)
+            members=team.team_member.exclude(username=request.user.username)
+            context={
+            'users':users,
+            'members':members
+            }
+    except Team.DoesNotExist:
+            team = None
+            members=None
+            context={
+            'users':users,
+            'members':members
+            }
+    return render(request,'djangoApp/team.html',context)

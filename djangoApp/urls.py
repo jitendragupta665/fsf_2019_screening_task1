@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
 path('', views.home, name='home'),
-path('connect/(?P<operation>,+)/(?P<pk>\d+)/',views.change_member,name="change_member")
+path('connect/(?P<operation>,+)/(?P<pk>\d+)/',views.change_member,name='change_member'),
+path('team/',views.team,name='team'),
 ]

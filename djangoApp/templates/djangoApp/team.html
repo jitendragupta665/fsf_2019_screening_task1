@@ -1,0 +1,28 @@
+{% extends 'djangoApp/base.html' %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+<div class="col-sm">
+<h1>Create Team</h1>
+  {% for usr in users%}
+  <p>
+    <p>{{usr.username}}
+  {% if not usr  in members %}
+      <a href="{% url 'change_member' operation='add' pk=usr.pk %}"><button type="button" class="btn btn-info" name="button">Add</button></a>
+      </p>
+      {% endif %}
+      </p>
+  {% endfor %}
+</div>
+<div class="col-sm">
+<h1>Team Member</h1>
+{% for member in members%}
+<p>
+{{member.username}}
+<a href="{% url 'change_member' operation='remove' pk=member.pk %}"><button type="button" name="button" class="btn btn-danger">Remove</button></a>
+</p>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
