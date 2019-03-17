@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 class Task(models.Model):
@@ -8,6 +9,7 @@ class Task(models.Model):
     description = models.TextField()
     assignee = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
+    created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
 class Team(models.Model):
@@ -26,3 +28,8 @@ class Team(models.Model):
         team.team_member.remove(new_member)
         for task in tasks:
            team.member_task.remove(task)
+class Comment(models.Model):
+        task = models.ForeignKey('djangoApp.Task', on_delete=models.CASCADE, related_name='comments')
+        usr=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+        comment = models.TextField()
+        created_date = models.DateTimeField(default=timezone.now)

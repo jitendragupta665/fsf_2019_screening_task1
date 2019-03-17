@@ -3,37 +3,57 @@
 <div style="background-color:white;">
   <div class="container">
     <div class="row">
-      <div class="col-sm">
-      <h1>Create Task</h1>
-      <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-        <p>
-          {{ field.label_tag }}<br>
-          {{ field }}
-          {% if field.help_text %}
-          <small class="help">{{ field.help_text|safe }}</small>
-          {% endif %}
-          {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-          {% endfor %}
-        </p>
-        {% endfor %}
-      <button type="submit" class="btn btn-info">Create Task</button>
-      </form>
+      <div class="col-sm-6" >
+      <h1 id="top">Create Task</h1>
+<div class="card" style="padding-left:1rem">
+  <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>
+      {{ field.label_tag }}<br>
+      {{ field }}
+      {% if field.help_text %}
+      <small class="help">{{ field.help_text|safe }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  <button type="submit" class="btn btn-info">Create Task</button>
+  </form>
+  </div>
       </div>
-        <div class="col-sm">
+        <div class="col-sm-6">
+
           <h1>Assigned Task</h1>
-          {% for task in tasks %}
-           <p>{{task.title}} </p>
-           <p>{{task.description}} </p>
-           <p>{{task.assignee}} </p>
-           <p>{{task.status}} </p
-             <h1>Next Task</h1>
-          {% endfor %}
+ <div class="row">
+{% for task in tasks %}
+   <div class="col-sm-12">
+     <div class="card">
+       <div class="card-body">
+         <h5 class="card-title">{{task.title}}</h5>
+         <p class="card-text">{{task.description}} </p>
+         <p class="card-text">{{task.assignee}} </p>
+         <p class="card-text">{{task.status}}  </p>
+         {% if user.username in task.task_creator.username %}
+            <a href="#" class="btn btn-primary" style="background-color:#17a2b8">Edit</a>
+            {% endif %}
+             <a href="{% url 'add_comment' pk=task.pk %}" class="btn btn-primary" style="background-color:#17a2b8">Comment</a>
+       </div>
+     </div>
+   </div>
+   {% endfor %}
+ </div>
+
           </div>
-        </div>
-      <div>
+
+        </div><!-- row-->
+      </div>
 </div>
-</div>
+<div class="top_to_bottom">
+
+  <a href="#top"><button type="button" class="btn btn-primary">TOP</button></a>
+
+  </div>
 {% endblock %}

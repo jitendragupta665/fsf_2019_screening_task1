@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Task
+from .models import Task,Comment
 
 
 class SignUpForm(UserCreationForm):
@@ -18,3 +18,8 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ('title', 'description','assignee','status',)
+class CommentForm(forms.ModelForm):
+
+     class Meta:
+         model= Comment
+         fields=('comment',)

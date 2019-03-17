@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
-from .models import Task,Team
+from django.shortcuts import render,redirect, get_object_or_404
+from .models import Task,Team,Comment
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, TaskForm
+from .forms import SignUpForm, TaskForm,CommentForm
 from django.contrib.auth.models import User
 @login_required
 def home(request):
@@ -51,6 +51,7 @@ def signup(request):
     else :
         form = SignUpForm()
     return render(request,'registration/signup.html',{'form':form})
+@login_required
 def change_member(request,operation,pk):
      new_member= User.objects.get(pk=pk)
      try:
@@ -62,6 +63,7 @@ def change_member(request,operation,pk):
      elif operation == 'remove':
          Team.remove_member(request.user,new_member,tasks)
      return redirect('team')
+@login_required
 def team(request):
     users = User.objects.exclude(username=request.user.username)
     try:
@@ -79,3 +81,17 @@ def team(request):
             'members':members
             }
     return render(request,'djangoApp/team.html',context)
+@login_required
+def add_comment(request,pk):
+     if request.method=="POST":
+                  cform=CommentForm(request.POST)
+                  if cform.is_valid():
+                      comment = cform.save(commit=False)
+                      comment.usr=request.user
+                      comment.task = get_object_or_404(Task, pk=pk)
+                      comment.save()
+                      return redirect('add_comment',pk=pk)
+     else:
+         cform = CommentForm()
+         context={'form':cform}
+         return render(request,'djangoApp/addcomment.html',context)
