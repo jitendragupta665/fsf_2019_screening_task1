@@ -83,15 +83,19 @@ def team(request):
     return render(request,'djangoApp/team.html',context)
 @login_required
 def add_comment(request,pk):
+     task=get_object_or_404(Task, pk=pk)
      if request.method=="POST":
                   cform=CommentForm(request.POST)
                   if cform.is_valid():
                       comment = cform.save(commit=False)
                       comment.usr=request.user
-                      comment.task = get_object_or_404(Task, pk=pk)
+                      comment.task =task
                       comment.save()
                       return redirect('add_comment',pk=pk)
      else:
          cform = CommentForm()
-         context={'form':cform}
+         cmnts = Comment.objects.filter(task=task)
+         context={'form':cform,
+                   'task':task,
+                   'cmnts':cmnts}
          return render(request,'djangoApp/addcomment.html',context)

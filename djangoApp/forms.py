@@ -19,7 +19,7 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ('title', 'description','assignee','status',)
 class CommentForm(forms.ModelForm):
-
+     first_name = forms.TextInput(attrs={'rows':4, 'cols':15})
      class Meta:
          model= Comment
          fields=('comment',)

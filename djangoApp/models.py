@@ -33,3 +33,5 @@ class Comment(models.Model):
         usr=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
         comment = models.TextField()
         created_date = models.DateTimeField(default=timezone.now)
+        def __str__(self):
+            return self.usr.username

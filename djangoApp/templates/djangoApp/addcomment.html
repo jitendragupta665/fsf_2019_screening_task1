@@ -1,5 +1,9 @@
 {% extends 'djangoApp/base.html' %}
 {% block content %}
+<p>{{task.title}}</p>
+<p>{{task.description}}</p>
+<p>{{task.assignee}}</p>
+<p>{{task.status}}</p>
 <form method="POST">
   {% csrf_token %}
   {% for field in form %}
@@ -16,4 +20,7 @@
   {% endfor %}
 <button type="submit" class="btn btn-info">Add Comment</button>
 </form>
+{% for cmnt in cmnts %}
+<p>{{cmnt.comment}} h</p>
+{% endfor %}
 {% endblock %}
