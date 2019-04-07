@@ -20,7 +20,7 @@ from djangoApp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('djangoApp.urls')),
+    path('', include('djangoApp.urls')),
     path('signup/', views.signup, name='signup'),
      path('accounts/', include('django.contrib.auth.urls')),
 ]
